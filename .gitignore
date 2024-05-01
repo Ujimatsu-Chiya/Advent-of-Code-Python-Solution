@@ -1,3 +1,5 @@
 .idea/
 __pycache__/
+my/
 .session
+input.txt
