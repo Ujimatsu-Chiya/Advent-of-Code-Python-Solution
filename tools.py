@@ -6,7 +6,7 @@ from typing import NamedTuple
 
 import gmpy2
 import sympy
-import numpy
+import numpy as np
 
 
 class Point(NamedTuple('Point', [('x', int), ('y', int)])):
@@ -96,7 +96,7 @@ def divisors_sigma(n, k=None):
 
 mod_inverse = sympy.mod_inverse
 
-sgn = numpy.sign
+sgn = np.sign
 
 
 def CRT(a_list, m_list):

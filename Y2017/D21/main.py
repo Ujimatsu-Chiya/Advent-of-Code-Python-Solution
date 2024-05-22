@@ -13,16 +13,11 @@ class Solver2017Day21(Solver):
             mat = l_str.split('/')
             nxt = tuple(r_str.split('/'))
             rule = self.rule2 if len(mat) == 2 else self.rule3
-            for _ in range(4):
-                rule[tuple(mat)] = nxt
+            for _ in range(2):
+                for _ in range(4):
+                    rule[tuple(mat)] = nxt
+                    mat = rotate_str(mat)
                 mat = [v[::-1] for v in mat]
-                rule[tuple(mat)] = nxt
-                mat.reverse()
-                rule[tuple(mat)] = nxt
-                mat = [v[::-1] for v in mat]
-                rule[tuple(mat)] = nxt
-                mat.reverse()
-                mat = rotate_str(mat)
         self.ans1 = self.ans2 = None
 
     def _trans(self, a):
