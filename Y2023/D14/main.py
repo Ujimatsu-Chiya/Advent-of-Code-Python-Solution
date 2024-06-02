@@ -8,24 +8,23 @@ class Solver2023Day14(Solver):
     DAY = 14
 
     def __init__(self, src):
-        return [list(s) for s in src.strip().split('\n')]
+        self.ls =  [list(s) for s in src.strip().split('\n')]
 
     def solve_part_1(self):
-        ls = self.parse(src)
-        n, m = len(ls), len(ls[0])
+        n, m = len(self.ls), len(self.ls[0])
         ans = 0
         for j in range(m):
             now = -1
             for i in range(n):
-                if ls[i][j] == 'O':
+                if self.ls[i][j] == 'O':
                     now += 1
                     ans += n - now
-                elif ls[i][j] == '#':
+                elif self.ls[i][j] == '#':
                     now = i
         return ans
 
     def solve_part_2(self):
-        ls = self.parse(src)
+        ls = self.ls
         M = 1000000000
         mp = {}
         state_ls = []
@@ -70,7 +69,7 @@ class Solver2023Day14(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day14()
     src = get_data(Solver2023Day14.YEAR, Solver2023Day14.DAY)
+    sol = Solver2023Day14(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

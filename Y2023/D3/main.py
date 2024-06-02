@@ -14,44 +14,42 @@ class Solver2023Day3(Solver):
         return [(x, y) for x, y in ps1 + ps2 + ps3 if 0 <= x < n and 0 <= y < m]
 
     def __init__(self, src):
-        return src.strip().split('\n')
+        self.mp= src.strip().split('\n')
 
     def solve_part_1(self):
-        def ok(mp, i, j, k):
-            return any(
-                not mp[x][y].isdigit() and mp[x][y] != '.' for x, y in self._gen_pos(i, j, k, len(mp), len(mp[0])))
+        def ok(i, j, k):
+            return any(not self.mp[x][y].isdigit() and self.mp[x][y] != '.' \
+                       for x, y in self._gen_pos(i, j, k, len(self.mp), len(self.mp[0])))
 
         ans = 0
-        mp = self.parse(src)
-        n, m = len(mp), len(mp[0])
+        n, m = len(self.mp), len(self.mp[0])
         for i in range(n):
             j = 0
             while j < m:
-                if mp[i][j].isdigit():
+                if self.mp[i][j].isdigit():
                     k = j
-                    while k < m and mp[i][k].isdigit():
+                    while k < m and self.mp[i][k].isdigit():
                         k += 1
-                    if ok(mp, i, j, k):
-                        ans += int(mp[i][j:k])
+                    if ok(i, j, k):
+                        ans += int(self.mp[i][j:k])
                     j = k
                 else:
                     j += 1
         return ans
 
     def solve_part_2(self):
-        mp = self.parse(src)
-        n, m = len(mp), len(mp[0])
+        n, m = len(self.mp), len(self.mp[0])
         mq = defaultdict(list)
         for i in range(n):
             j = 0
             while j < m:
-                if mp[i][j].isdigit():
+                if self.mp[i][j].isdigit():
                     k = j
-                    while k < m and mp[i][k].isdigit():
+                    while k < m and self.mp[i][k].isdigit():
                         k += 1
-                    for x, y in self._gen_pos(i, j, k, len(mp), len(mp[0])):
-                        if mp[x][y] == '*':
-                            mq[x, y].append(int(mp[i][j:k]))
+                    for x, y in self._gen_pos(i, j, k, n, m):
+                        if self.mp[x][y] == '*':
+                            mq[x, y].append(int(self.mp[i][j:k]))
                     j = k
                 else:
                     j += 1
@@ -63,7 +61,7 @@ class Solver2023Day3(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day3()
     src = get_data(Solver2023Day3.YEAR, Solver2023Day3.DAY)
+    sol = Solver2023Day3(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

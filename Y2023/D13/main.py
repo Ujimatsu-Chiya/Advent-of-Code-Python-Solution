@@ -1,4 +1,5 @@
-from utils import Solver, get_data, transpose_str
+from utils import Solver, get_data
+from tools import transpose_str
 
 
 class Solver2023Day13(Solver):
@@ -6,24 +7,11 @@ class Solver2023Day13(Solver):
     DAY = 13
 
     def __init__(self, src):
-        ls = []
-        t = src.strip().split('\n')
-        i = 0
-        while i < len(t):
-            if len(t[i]) > 0:
-                j = i
-                while j < len(t) and len(t[j]) > 0:
-                    j += 1
-                ls.append(t[i:j])
-                i = j
-            else:
-                i += 1
-        return ls
+        self.mats = [s.split() for s in src.strip().split('\n\n')]
 
     def solve_part_1(self):
-        ls = self.parse(src)
         ans = 0
-        for mp in ls:
+        for mp in self.mats:
             n, m = len(mp), len(mp[0])
             for i in range(1, n):
                 sz = min(i, n - i)
@@ -45,9 +33,8 @@ class Solver2023Day13(Solver):
                         ans += 1
             return ans == 1
 
-        ls = self.parse(src)
         ans = 0
-        for mp in ls:
+        for mp in self.mats:
             n, m = len(mp), len(mp[0])
             for i in range(1, n):
                 sz = min(i, n - i)
@@ -62,7 +49,7 @@ class Solver2023Day13(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day13()
     src = get_data(Solver2023Day13.YEAR, Solver2023Day13.DAY)
+    sol = Solver2023Day13(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

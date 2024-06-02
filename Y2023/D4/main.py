@@ -6,29 +6,25 @@ class Solver2023Day4(Solver):
     DAY = 4
 
     def __init__(self, src):
-        ls = src.strip().split('\n')
-        lt = []
-        for line in ls:
+        self.queries = []
+        for line in src.strip().split('\n'):
             card, nums = line.split(':')
             winning_numbers_str, numbers_str = nums.split('|')
             winning_numbers = set(winning_numbers_str.split())
             numbers = set(numbers_str.split())
-            lt.append((winning_numbers, numbers))
-        return lt
+            self.queries.append((winning_numbers, numbers))
 
     def solve_part_1(self):
         ans = 0
-        for winning_numbers, numbers in self.parse(src):
+        for winning_numbers, numbers in self.queries:
             cnt = len(winning_numbers & numbers)
             ans += 1 << (cnt - 1) if cnt > 0 else 0
         return ans
 
     def solve_part_2(self):
-        ls = self.parse(src)
-        n = len(ls)
+        n = len(self.queries)
         f = [1 for _ in range(n)]
-        for i, tp in enumerate(ls):
-            winning_numbers, numbers = tp
+        for i, (winning_numbers, numbers) in enumerate(self.queries):
             cnt = len(winning_numbers & numbers)
             for k in range(1, cnt + 1):
                 if i + k < n:
@@ -37,7 +33,7 @@ class Solver2023Day4(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day4()
     src = get_data(Solver2023Day4.YEAR, Solver2023Day4.DAY)
+    sol = Solver2023Day4(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

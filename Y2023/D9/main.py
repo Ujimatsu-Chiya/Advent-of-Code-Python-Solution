@@ -5,18 +5,12 @@ class Solver2023Day9(Solver):
     YEAR = 2023
     DAY = 9
 
-    def parse(self,src):
-        tmp = src.strip().split('\n')
-        ls = []
-        for t in tmp:
-            ls.append(list(map(int, t.split())))
-        return ls
+    def __init__(self, src):
+        self.ls = [list(map(int, t.split())) for t in src.strip().split('\n')]
 
-
-    def solve_part_1(self,src):
-        ls = self.parse(src)
+    def solve_part_1(self):
         ans = 0
-        for u in ls:
+        for u in self.ls:
             now = [u]
             while True:
                 v = []
@@ -30,11 +24,9 @@ class Solver2023Day9(Solver):
             ans += now[0][-1]
         return ans
 
-
-    def solve_part_2(self,src):
-        ls = self.parse(src)
+    def solve_part_2(self):
         ans = 0
-        for u in ls:
+        for u in self.ls:
             now = [list(reversed(u))]
             while True:
                 v = []
@@ -50,7 +42,7 @@ class Solver2023Day9(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day9()
     src = get_data(Solver2023Day9.YEAR, Solver2023Day9.DAY)
+    sol = Solver2023Day9(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

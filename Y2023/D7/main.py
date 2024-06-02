@@ -9,11 +9,10 @@ class Solver2023Day7(Solver):
 
     def __init__(self, src):
         tmp = src.strip().split('\n')
-        ls = []
+        self.queries = []
         for s in tmp:
             s, val = s.split()
-            ls.append((s, int(val)))
-        return ls
+            self.queries.append((s, int(val)))
 
     def _get_rank_1(self, s):
         v = sorted(Counter(s).values())
@@ -37,24 +36,22 @@ class Solver2023Day7(Solver):
         return self._get_rank_1(t)
 
     def solve_part_1(self):
-        ls = self.parse(src)
         s = '23456789TJQKA'
         mp = {ch: i for i, ch in enumerate(s)}
-        lt = sorted([([self._get_rank_1(s)] + [mp[ch] for ch in s], val) for s, val in ls])
+        lt = sorted([([self._get_rank_1(s)] + [mp[ch] for ch in s], val) for s, val in self.queries])
         ans = sum((i + 1) * v[1] for i, v in enumerate(lt))
         return ans
 
     def solve_part_2(self):
-        ls = self.parse(src)
         s = 'J23456789TQKA'
         mp = {ch: i for i, ch in enumerate(s)}
-        lt = sorted([([self._get_rank_2(s)] + [mp[ch] for ch in s], val) for s, val in ls])
+        lt = sorted([([self._get_rank_2(s)] + [mp[ch] for ch in s], val) for s, val in self.queries])
         ans = sum((i + 1) * v[1] for i, v in enumerate(lt))
         return ans
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day7()
     src = get_data(Solver2023Day7.YEAR, Solver2023Day7.DAY)
+    sol = Solver2023Day7(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

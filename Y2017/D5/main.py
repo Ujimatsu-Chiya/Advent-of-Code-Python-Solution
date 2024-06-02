@@ -9,7 +9,7 @@ class Solver2017Day5(Solver):
         self.a = list(map(int, src.strip().split()))
 
     def solve_part_1(self):
-        a = self.a
+        a = self.a.copy()
         p = 0
         cnt = 0
         while 0 <= p < len(a):
@@ -20,7 +20,7 @@ class Solver2017Day5(Solver):
         return cnt
 
     def solve_part_2(self):
-        a = self.a
+        a = self.a.copy()
         p = 0
         cnt = 0
         while 0 <= p < len(a):

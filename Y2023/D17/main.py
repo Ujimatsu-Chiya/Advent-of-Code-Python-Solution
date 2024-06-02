@@ -10,12 +10,11 @@ class Solver2023Day17(Solver):
     DAY = 17
 
     def __init__(self, src):
-        return src.strip().split()
+        self.ls = src.strip().split()
 
     def solve_part_1(self):
-        ls = self.parse(src)
-        a = [[int(ch) for ch in s] for s in ls]
-        n, m = len(ls), len(ls[0])
+        a = [[int(ch) for ch in s] for s in self.ls]
+        n, m = len(self.ls), len(self.ls[0])
         inf = n * m * 10
         dis = [[[[inf for _ in range(3)] for _ in range(4)] for _ in range(m)] for _ in range(n)]
         q = PriorityQueue()
@@ -37,9 +36,8 @@ class Solver2023Day17(Solver):
         return ans
 
     def solve_part_2(self):
-        ls = self.parse(src)
-        a = [[int(ch) for ch in s] for s in ls]
-        n, m = len(ls), len(ls[0])
+        a = [[int(ch) for ch in s] for s in self.ls]
+        n, m = len(self.ls), len(self.ls[0])
         inf = n * m * 10
         dis = [[[[inf for _ in range(7)] for _ in range(4)] for _ in range(m)] for _ in range(n)]
         q = PriorityQueue()
@@ -62,13 +60,12 @@ class Solver2023Day17(Solver):
                 for k in range(1, 4 + 1):
                     w += a[x + dirs[i][0] * k][y + dirs[i][1] * k]
                 q.put((val + w, tx, ty, i, 0))
-
         ans = min(dis[-1][-1][i][j] for i in range(4) for j in range(7))
         return ans
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day17()
     src = get_data(Solver2023Day17.YEAR, Solver2023Day17.DAY)
+    sol = Solver2023Day17(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

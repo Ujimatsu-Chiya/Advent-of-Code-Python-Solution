@@ -35,7 +35,6 @@ class Solver2021Day23(Solver):
         def replace(tp, i, new):
             return tp[:i] + (new,) + tp[i + 1:]
 
-
         def gen_state(st: State):
             for room_i, room in enumerate(st.rooms):
                 if all(x == room_i for x in room):

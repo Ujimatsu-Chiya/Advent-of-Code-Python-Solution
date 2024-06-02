@@ -2,7 +2,7 @@ from collections import defaultdict
 from queue import Queue
 
 from utils import Solver, get_data
-
+from keyword import kwlist
 
 class Solver2015Day7(Solver):
     YEAR = 2015
@@ -12,7 +12,7 @@ class Solver2015Day7(Solver):
         msk = (1 << 16) - 1
         src = src.replace('LSHIFT', '<<').replace('RSHIFT', '>>'). \
             replace('AND', '&').replace('OR', '|').replace('NOT', '{} ^'.format(msk))
-        for keyword in ['as', 'if', 'in', 'is']:
+        for keyword in kwlist:
             src = src.replace(keyword, keyword * 2)
         self.mp = {}
         for s in src.strip().split('\n'):

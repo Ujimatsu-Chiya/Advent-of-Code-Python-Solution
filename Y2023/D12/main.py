@@ -6,12 +6,10 @@ class Solver2023Day12(Solver):
     DAY = 12
 
     def __init__(self, src):
-        ls = []
+        self.queries = []
         for s in src.strip().split('\n'):
             s, nums_str = s.split()
-            lt = list(map(int, nums_str.split(',')))
-            ls.append((s, lt))
-        return ls
+            self.queries .append((s, list(map(int, nums_str.split(',')))))
 
     def _solve(self, s, a):
         n, m = len(a), len(s)
@@ -40,22 +38,14 @@ class Solver2023Day12(Solver):
         return ans
 
     def solve_part_1(self):
-        ans = 0
-        ls = self.parse(src)
-        for s, a in ls:
-            ans += self._solve(s, a)
-        return ans
+        return sum(self._solve(s, a) for s, a in self.queries)
 
     def solve_part_2(self):
-        ans = 0
-        ls = self.parse(src)
-        for s, a in ls:
-            ans += self._solve('?'.join([s] * 5), a * 5)
-        return ans
+        return sum(self._solve("?".join([s] * 5), a * 5) for s, a in self.queries)
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day12()
     src = get_data(Solver2023Day12.YEAR, Solver2023Day12.DAY)
+    sol = Solver2023Day12(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

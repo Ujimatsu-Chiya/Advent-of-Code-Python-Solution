@@ -8,22 +8,9 @@ class Solver2023Day5(Solver):
     DAY = 5
 
     def __init__(self, src):
-        ls = src.strip().split('\n')
-        seeds = list(map(int, ls[0].split(':')[1].split()))
-        maps = []
-        i = 1
-        while i < len(ls):
-            if 'map' not in ls[i]:
-                i += 1
-                continue
-            j = i + 1
-            f = []
-            while j < len(ls) and len(ls[j]) > 0:
-                f.append(list(map(int, ls[j].split())))
-                j += 1
-            maps.append(f)
-            i = j
-        return seeds, maps
+        seed_str, *map_str = src.strip().split('\n\n')
+        self.seeds = list(map(int, seed_str.split(':')[1].split()))
+        self.maps = [[list(map(int, t.split())) for t in s.split('\n')[1:]] for s in map_str]
 
     def solve_part_1(self):
         def evaluate(f, x):
@@ -32,20 +19,18 @@ class Solver2023Day5(Solver):
                     return dst_pos + (x - src_pos)
             return x
 
-        seed, maps = self.parse(src)
         ans = []
-        for x in seed:
-            for f in maps:
+        for x in self.seeds:
+            for f in self.maps:
                 x = evaluate(f, x)
             ans.append(x)
         return min(ans)
 
     def solve_part_2(self):
-        tmp, maps = self.parse(src)
         x = []
-        for i in range(0, len(tmp), 2):
-            x.append((tmp[i], tmp[i] + tmp[i + 1]))
-        for f in maps:
+        for i in range(0, len(self.seeds), 2):
+            x.append((self.seeds[i], self.seeds[i] + self.seeds[i + 1]))
+        for f in self.maps:
             f = sorted(f, key=lambda v: v[1])
             normal_f = {}
             for dst_pos, src_pos, l in f:
@@ -72,7 +57,7 @@ class Solver2023Day5(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day5()
     src = get_data(Solver2023Day5.YEAR, Solver2023Day5.DAY)
+    sol = Solver2023Day5(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

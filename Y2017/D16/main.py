@@ -56,7 +56,7 @@ class Solver2017Day16(Solver):
             idx = M
         else:
             idx = st + (M - st) % T
-        return [idx]
+        return state_ls[idx]
 
 
 if __name__ == "__main__":

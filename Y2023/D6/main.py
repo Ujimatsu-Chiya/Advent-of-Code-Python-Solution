@@ -7,9 +7,8 @@ class Solver2023Day6(Solver):
 
     def __init__(self, src):
         time_str, distance_str = src.strip().split('\n')
-        time_list = list(map(int, time_str[time_str.find(':') + 1:].strip().split()))
-        distance_list = list(map(int, distance_str[distance_str.find(':') + 1:].strip().split()))
-        return time_list, distance_list
+        self.time_list = list(map(int, time_str[time_str.find(':') + 1:].strip().split()))
+        self.distance_list = list(map(int, distance_str[distance_str.find(':') + 1:].strip().split()))
 
     def cal(self, tm, dis):
         l = 0
@@ -24,21 +23,19 @@ class Solver2023Day6(Solver):
         return 0 if l > k else k - l + 1
 
     def solve_part_1(self):
-        time_list, distance_list = self.parse(src)
         ans = 1
-        for tm, dis in zip(time_list, distance_list):
+        for tm, dis in zip(self.time_list, self.distance_list):
             ans *= self.cal(tm, dis)
         return ans
 
     def solve_part_2(self):
-        time_list, distance_list = self.parse(src)
-        tm = int(''.join(str(x) for x in time_list))
-        dis = int(''.join(str(x) for x in distance_list))
+        tm = int(''.join(str(x) for x in self.time_list))
+        dis = int(''.join(str(x) for x in self.distance_list))
         return self.cal(tm, dis)
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day6()
     src = get_data(Solver2023Day6.YEAR, Solver2023Day6.DAY)
+    sol = Solver2023Day6(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())

@@ -6,12 +6,11 @@ class Solver2023Day15(Solver):
     DAY = 15
 
     def __init__(self, src):
-        return src.strip().split(',')
+        self.ls = src.strip().split(',')
 
     def solve_part_1(self):
-        ls = self.parse(src)
         ans = 0
-        for s in ls:
+        for s in self.ls:
             w = 0
             for ch in s:
                 w = (w + ord(ch)) * 17 % 256
@@ -19,9 +18,8 @@ class Solver2023Day15(Solver):
         return ans
 
     def solve_part_2(self):
-        ls = self.parse(src)
         mp = {}
-        for i, s in enumerate(ls):
+        for i, s in enumerate(self.ls):
             if s.endswith('-'):
                 tag = s.rstrip('-')
                 if tag in mp.keys():
@@ -51,7 +49,7 @@ class Solver2023Day15(Solver):
 
 
 if __name__ == "__main__":
-    sol = Solver2023Day15()
     src = get_data(Solver2023Day15.YEAR, Solver2023Day15.DAY)
+    sol = Solver2023Day15(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())
