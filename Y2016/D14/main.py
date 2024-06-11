@@ -1,5 +1,5 @@
-import hashlib
 from itertools import count
+
 from tools import md5_digest
 from utils import Solver, get_data
 
@@ -26,6 +26,7 @@ class Solver2016Day14(Solver):
                 for i in range(len(t) - 4):
                     if len(set(t[i:i + 5])) == 1:
                         s5 |= 1 << int(t[i], 16)
+                        break
                 cache3.append(s3)
                 cache5.append(s5)
 
@@ -45,6 +46,7 @@ class Solver2016Day14(Solver):
         return self._run(md5_digest)
 
     def solve_part_2(self):
+
         def iterate2017(s):
             for _ in range(2017):
                 s = md5_digest(s)
@@ -54,7 +56,10 @@ class Solver2016Day14(Solver):
 
 
 if __name__ == "__main__":
+    from time import time
+    st = time()
     src = get_data(Solver2016Day14.YEAR, Solver2016Day14.DAY)
     sol = Solver2016Day14(src)
     print(sol.solve_part_1())
     print(sol.solve_part_2())
+    print(time() - st)

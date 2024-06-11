@@ -1,12 +1,12 @@
 import hashlib
+import operator
 from collections import defaultdict, deque
 from functools import reduce
-import operator
 from typing import NamedTuple
 
-import gmpy2
-import sympy
 import numpy as np
+import sympy as sp
+import gmpy2
 
 
 class Point(NamedTuple('Point', [('x', int), ('y', int)])):
@@ -75,7 +75,7 @@ is_prime = gmpy2.is_prime
 
 
 def factorization(n):
-    return sorted(sympy.factorint(n).items())
+    return sorted(sp.factorint(n).items())
 
 
 def divisors_sigma(n, k=None):
@@ -94,8 +94,7 @@ def divisors_sigma(n, k=None):
     return ans
 
 
-mod_inverse = sympy.mod_inverse
-
+mod_inverse = sp.mod_inverse
 sgn = np.sign
 
 

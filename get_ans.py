@@ -268,17 +268,15 @@ class_list = [Solver2015Day1, Solver2015Day2, Solver2015Day3, Solver2015Day4, So
 tot = 0
 mp = {}
 for clazz in class_list:
-    # if not (clazz.YEAR, clazz.DAY) <= (2015, 3):
-    #     continue
     st = time()
     src = get_data(clazz.YEAR, clazz.DAY)
     sol = clazz(src)
     sol.run()
     print(clazz.YEAR, clazz.DAY, sol.solve_part_1(), sol.solve_part_2())
-#     tm = time() - st
-#     print("time: {}".format(tm))
-#     tot += tm
-#     mp[clazz.YEAR, clazz.DAY] = tm
-# print("total time: {}".format(tot))
-# for k, v in sorted(mp.items(), key=lambda tp: tp[1], reverse=True):
-#     print(k, v)
+    tm = time() - st
+    print("time: {}".format(tm))
+    tot += tm
+    mp[clazz.YEAR, clazz.DAY] = tm
+print("total time: {}".format(tot))
+for k, v in sorted(mp.items(), key=lambda tp: tp[1], reverse=True):
+    print(k, v)
